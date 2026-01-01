@@ -8,40 +8,6 @@ local function DebugPrint(message)
     end
 end
 
--- Load utility functions
--- Note: We use the resource name directly since utils.lua exports functions
-local function NotifyPlayer(playerId, type, message)
-    if type == 'success' then
-        exports['daphne-notification']:NotifySuccess(playerId, message, Config.NotificationDuration)
-    elseif type == 'error' then
-        exports['daphne-notification']:NotifyError(playerId, message, Config.NotificationDuration)
-    elseif type == 'info' then
-        exports['daphne-notification']:NotifyInfo(playerId, message, Config.NotificationDuration)
-    elseif type == 'warning' then
-        exports['daphne-notification']:NotifyWarning(playerId, message, Config.NotificationDuration)
-    end
-end
-
-local function GetPlayerOwnedVehicles(playerId)
-    return exports['daphne-car-lock']:GetPlayerOwnedVehicles(playerId)
-end
-
-local function PlayerHasKey(playerId, plate)
-    return exports['daphne-car-lock']:HasKey(playerId, plate)
-end
-
-local function AddVehicleToPlayer(playerId, plate)
-    return exports['daphne-car-lock']:AddVehicleToPlayer(playerId, plate)
-end
-
-local function RemoveVehicleFromPlayer(playerId, plate)
-    return exports['daphne-car-lock']:RemoveVehicleFromPlayer(playerId, plate)
-end
-
-local function FindVehicleByPlate(plate)
-    return exports['daphne-car-lock']:FindVehicleByPlate(plate)
-end
-
 -- Notify player using daphne-notification
 local function NotifyPlayer(playerId, type, message)
     if type == 'success' then
@@ -136,7 +102,7 @@ end
 -- Get player's owned vehicles from database via daphne-core
 local function GetPlayerVehiclesFromDatabase(playerId)
     local success, playerData = pcall(function()
-        return exports['daphne_core']:GetPlayerData(playerId)
+        return exports['daphne-core']:GetPlayerData(playerId)
     end)
 
     if not success or not playerData then
